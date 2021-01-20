@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router";
+import Router from 'next/router';
 import Link from "next/link";
 import styles from "../Add.module.css";
 /* components */
@@ -82,14 +82,16 @@ export default class NameForm extends React.Component {
   }
 
   handleSubmit = async (event) => {
-    event.preventDefault();
-    fetch("../api/updateorder", {
-      method: "POST",
-      body: JSON.stringify(this.state),
-    })
-      .then((res) => res.json())
-      .then((result) => console.log(result));
-    this.componentDidMount();
+    if (this.state.admin === "Гук Василь" || !this.state.checked) {
+      event.preventDefault();
+      fetch("../api/updateorder", {
+        method: "POST",
+        body: JSON.stringify(this.state),
+      })
+        .then((res) => res.json())
+        .then((result) => console.log(result));
+      this.componentDidMount();
+    }
   };
 
   componentDidMount() {
@@ -120,11 +122,14 @@ export default class NameForm extends React.Component {
 
     const { profile } = this.props.profile;
     this.setState({ profile: profile });
-    this.setState({ admin: this.props.profile.fullName });
+    if (this.props.profile.fullName === 'Гук Василь') {
+      this.setState({ admin: this.props.profile.fullName });
+    }
   }
 
 
   render() {
+    console.log(this.state.admin)
     const { error, isLoaded, items } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -132,7 +137,7 @@ export default class NameForm extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <Layout title="Добавити нове замовлення">
+        <Layout title="Змінити замовлення">
           <div>
             <form className={styles.content} onSubmit={this.handleSubmit}>
               <label name="order">
@@ -173,7 +178,7 @@ export default class NameForm extends React.Component {
               <select style={{ margin: '10px' }}
                   value={this.state.payment}
                   onChange={this.handleInputPaymentChange}
-                >
+                 >
                   <option value="Monobank">Monobank</option>
                   <option value="Privatbank">Privatbank</option>
                   <option value="cache">Готівка</option>
@@ -201,7 +206,12 @@ export default class NameForm extends React.Component {
                   onChange={this.handleInputCommentChange}
                 />
               </label>
-              <input type="submit" value="Змінити замовлення" />
+              {this.state.checked  ? (null) : (
+                <input type="submit" value="Змінити замовлення" onClick={() => Router.push('/orders')}/>
+              )}
+              {this.state.admin !== "Гук Василь" ? (null) : (
+                <input type="submit" value="Змінити замовлення" onClick={() => Router.push('/orders')}/>
+              )}
             </form>
           </div>
         </Layout>

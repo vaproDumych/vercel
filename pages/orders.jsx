@@ -49,7 +49,7 @@ export default function Orders(props) {
     return <div>Loading...</div>;
   } else {
     return (
-      <Layout title="Добавити нове замовлення">
+      <Layout title="Всі замовлення">
         <div className={styles.content}>
           {!profile ? (
             <a href="/">Login to continue</a>
@@ -69,7 +69,7 @@ export default function Orders(props) {
                 </tr>
 
                 {items.map((order) => (
-                  <tr>
+                  <tr style={ order.checked ? { backgroundColor: '#00640050'} : {}}>
                     <td>{order.date_added}</td>
                     <td>{order.order}</td>
                     <td>{order.realization}</td>
