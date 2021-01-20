@@ -119,7 +119,6 @@ export default class NameForm extends React.Component {
       );
 
     const { profile } = this.props.profile;
-    console.log(this.props.profile.fullName)
     this.setState({ profile: profile });
     this.setState({ admin: this.props.profile.fullName });
   }
@@ -181,7 +180,7 @@ export default class NameForm extends React.Component {
                   <option value="other">Інше</option>
                 </select>
 
-                {this.state.admin === "va@tdes.com.ua" ? (null) : (
+                {this.state.admin !== "Гук Василь" ? (null) : (
                   <label name="checked" style={{ display: 'block' }}>
                     Перевірено:
                     <input name="checked" type="checkbox" onChange={this.handleCheck}
