@@ -19,7 +19,7 @@ export default function Orders(props) {
   const [items, setItems] = useState([]);
 
   const { profile } = props;
-  
+
 
   useEffect(() => {
     fetch("../api/orders", {
@@ -50,46 +50,46 @@ export default function Orders(props) {
   } else {
     return (
       <Layout title="Добавити нове замовлення">
-      <div className={styles.content}>
-      {!profile ? (
+        <div className={styles.content}>
+          {!profile ? (
             <a href="/">Login to continue</a>
           ) : (
-            <table className="table-content">
-          <tr>
-            <td>Дата</td>
-            <td>№ замовлення</td>
-            <td>№ Видаткової</td>
-            <td>№ Переміщення</td>
-            <td>Сума</td>
-            <td>Відповідальний</td>
-            <td>Тип оплати</td>
-            <td>Коментар</td>
-            <td>Перевірено</td>
-            <td>Змінити дані</td>
-          </tr>
+              <table className="table-content">
+                <tr>
+                  <td>Дата</td>
+                  <td>№ замовлення</td>
+                  <td>№ Видаткової</td>
+                  <td>№ Переміщення</td>
+                  <td>Сума</td>
+                  <td>Відповідальний</td>
+                  <td>Тип оплати</td>
+                  <td>Коментар</td>
+                  <td>Перевірено</td>
+                  <td>Змінити дані</td>
+                </tr>
 
-          {items.map((order) => (
-            <tr>
-              <td>{order.date_added}</td>
-              <td>{order.order}</td>
-              <td>{order.realization}</td>
-              <td>{order.transfer}</td>
-              <td>{order.price}</td>
-              <td>{order.manager}</td>
-              <td>{order.payment}</td>
-              <td>{order.comment}</td>
-              <td>{order.checked}</td>
-              <td>
-                <Link href={`/order/${order._id}`}>
-                  <a>Змінити замовлення</a>
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </table>
-          )}
-        
-      </div>
+                {items.map((order) => (
+                  <tr>
+                    <td>{order.date_added}</td>
+                    <td>{order.order}</td>
+                    <td>{order.realization}</td>
+                    <td>{order.transfer}</td>
+                    <td>{order.price}</td>
+                    <td>{order.manager}</td>
+                    <td>{order.payment}</td>
+                    <td>{order.comment}</td>
+                    <td>{!order.checked ? (null) : (<p>перевірено</p>)}</td>
+                    <td>
+                      <Link href={`/order/${order._id}`}>
+                        <a>Змінити замовлення</a>
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </table>
+            )}
+
+        </div>
       </Layout>
     );
   }

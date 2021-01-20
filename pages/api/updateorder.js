@@ -8,6 +8,7 @@ export default async function handler(req, res) {
       price: JSON.parse(req.body).price,
       payment: JSON.parse(req.body).payment,
       comment: JSON.parse(req.body).comment,
+      checked: JSON.parse(req.body).checked,
     },
   };
   let o_id = req.headers.referer.split("/")[
