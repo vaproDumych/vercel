@@ -140,7 +140,7 @@ export default class NameForm extends React.Component {
               <input
               type="number"
                 onChange={this.handleInputPriceChange}
-                value={this.state.price}
+                value={this.state.price} required
               />
             </label>
 

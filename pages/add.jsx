@@ -110,7 +110,7 @@ export default class Add extends React.Component {
             <input
             type="number"
               value={this.state.order}
-              onChange={this.handleInputOrderChange}
+              onChange={this.handleInputOrderChange} required
             />
           </label>
           <label name="realization">
@@ -134,7 +134,7 @@ export default class Add extends React.Component {
             <input
             type="number"
               value={this.state.price}
-              onChange={this.handleInputPriceChange}
+              onChange={this.handleInputPriceChange} required
             />
           </label>
 
