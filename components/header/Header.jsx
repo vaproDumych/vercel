@@ -2,8 +2,18 @@ import Link from 'next/link';
 
 /* Components */
 // import DarkModeToggle from "../DarkModeToggle";
+/* middleware */
+import {
+  absoluteUrl,
+  getAppCookies,
+  verifyToken,
+  setLogout,
+} from '../../middleware/utils';
 
 const Header = ({ props }) => {
+  function handleOnClickLogout(e) {
+    setLogout(e);
+  }
   return (
     <>
       <nav className="navbar navbar-expand-lg p-2">
@@ -11,7 +21,15 @@ const Header = ({ props }) => {
           <a className="nav-item nav-link">Home</a>
         </Link>
         <Link href="/about">
-          <a className="nav-item nav-link">About</a>
+        <a href="#" onClick={e => handleOnClickLogout(e)}>
+                  &bull; Вийти
+                </a>
+        </Link>
+        <Link href="/orders">
+          <a className="nav-item nav-link">Всі замовлення</a>
+        </Link>
+        <Link href="/add">
+          <a className="nav-item nav-link">Створити нове замовлення</a>
         </Link>
         {/* <Link href="/forever">
           <a className="nav-item nav-link">Forever</a>

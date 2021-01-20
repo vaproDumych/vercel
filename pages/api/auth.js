@@ -7,27 +7,33 @@ const KEY = process.env.JWT_KEY;
 const USERS = [
   {
     id: 1,
-    email: 'example1@example.com',
-    password: '$2y$10$mj1OMFvVmGAR4gEEXZGtA.R5wYWBZTis72hSXzpxEs.QoXT3ifKSq', // password
-    createdAt: '2020-06-14 18:23:45',
+    email: 'kk@tdes.com.ua',
+    password: '$2y$12$luUj9b6fwUfnqdS/L4U41.ovMC9qemrH8QqJqNdZLFmCI6FNP5vnW', // password
+    fullName: 'Колодій Костянтин',
   },
   {
     id: 2,
-    email: 'example2@example.com',
-    password: '$2y$10$mj1OMFvVmGAR4gEEXZGtA.R5wYWBZTis72hSXzpxEs.QoXT3ifKSq', // password
-    createdAt: '2020-06-14 18:23:45',
+    email: 'vp@tdes.com.ua',
+    password: '$2y$12$JDYVpyLH1MOm2wwcQkYSM.87XbIwZp70msINduZMwIhv5FuMWo0wO', // password
+    fullName: 'Проховник Володимир',
   },
   {
     id: 3,
-    email: 'example3@example.com',
-    password: '$2y$10$mj1OMFvVmGAR4gEEXZGtA.R5wYWBZTis72hSXzpxEs.QoXT3ifKSq', // password
-    createdAt: '2020-06-14 18:23:45',
+    email: 'va@tdes.com.ua',
+    password: '$2y$12$DSNuLYeMgJBGhPFjhSmMO.PTDPIoXrnH58dMDi19DnQSV3sYZYkla', // password
+    fullName: 'Албатов Василь',
   },
   {
     id: 4,
-    email: 'example4@example.com',
-    password: '$2y$10$mj1OMFvVmGAR4gEEXZGtA.R5wYWBZTis72hSXzpxEs.QoXT3ifKSq', // password
-    createdAt: '2020-06-14 18:23:45',
+    email: 'vg@tdes.com.ua',
+    password: '$2y$12$p/o9OfYeLG/YVuL7I5aTiubA4eNzzgkdoeqMsznqOvWozTCN/JfzC', // password
+    fullName: 'Гук Василь',
+  },
+  {
+    id: 5,
+    email: 'sales@tdes.com.ua',
+    password: '$2y$12$YOf3Gq947NvpsodWFuENPewdb5..sd/tPZbrn3SjMRf4qtBuw4xKK', // password
+    fullName: 'Інтернет',
   },
 ];
 
@@ -59,7 +65,7 @@ export default (req, res) => {
           const userId = user.id,
             userEmail = user.email,
             userPassword = user.password,
-            userCreated = user.createdAt;
+            userFullName = user.fullName;
           /* Check and compare password */
           bcrypt.compare(password, userPassword).then(isMatch => {
             /* User matched */
@@ -68,7 +74,7 @@ export default (req, res) => {
               const payload = {
                 id: userId,
                 email: userEmail,
-                createdAt: userCreated,
+                fullName: userFullName,
               };
               /* Sign token */
               jwt.sign(

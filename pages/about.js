@@ -43,7 +43,7 @@ export default function About(props) {
                   </legend>
                   <h4>ID: {profile.id}</h4>
                   <h4>Email: {profile.email}</h4>
-                  <h4>Created: {profile.createdAt}</h4>
+                  <h4>Full Name: {profile.fullName}</h4>
                 </fieldset>
               </div>
             </div>
