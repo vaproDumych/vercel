@@ -117,12 +117,12 @@ export default class NameForm extends React.Component {
           <form className={styles.content} onSubmit={this.handleSubmit}>
             <label name="order">
               № Замовлення:
-              <input type="text" value={this.state.order} disabled />
+              <input type="number" value={this.state.order} disabled />
             </label>
             <label name="realization">
               № Видаткової:
               <input
-                type="text"
+              type="number"
                 value={this.state.realization}
                 onChange={this.handleInputRealizationChange}
               />
@@ -130,7 +130,7 @@ export default class NameForm extends React.Component {
             <label name="transfer">
               № Переміщення:
               <input
-                type="text"
+              type="number"
                 value={this.state.transfer}
                 onChange={this.handleInputTransferChange}
               />
@@ -138,7 +138,7 @@ export default class NameForm extends React.Component {
             <label name="price">
               Сума:
               <input
-                type="text"
+              type="number"
                 onChange={this.handleInputPriceChange}
                 value={this.state.price}
               />

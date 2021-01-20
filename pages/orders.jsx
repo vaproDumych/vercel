@@ -22,7 +22,10 @@ export default function Orders(props) {
   
 
   useEffect(() => {
-    fetch("../api/orders")
+    fetch("../api/orders", {
+      method: "POST",
+      body: JSON.stringify(profile.fullName),
+    })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -51,23 +54,7 @@ export default function Orders(props) {
       {!profile ? (
             <a href="/">Login to continue</a>
           ) : (
-            <div>
-              <div style={{ margin: '.5rem 0rem' }}>
-                <Link href={{ pathname: '/' }}>
-                  <a style={{ marginRight: '.75rem' }}>&bull; Home Page</a>
-                </Link>
-              </div>
-              <div style={{ textAlign: 'left' }}>
-                <fieldset>
-                  <legend>
-                  <h4>Менеджер: {profile.fullName}</h4>
-                  </legend>
-                  <h4>Email: {profile.email}</h4>
-                </fieldset>
-              </div>
-            </div>
-          )}
-        <table className="table-content">
+            <table className="table-content">
           <tr>
             <td>Дата</td>
             <td>№ замовлення</td>
@@ -100,6 +87,8 @@ export default function Orders(props) {
             </tr>
           ))}
         </table>
+          )}
+        
       </div>
       </Layout>
     );

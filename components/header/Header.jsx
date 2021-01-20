@@ -17,19 +17,16 @@ const Header = ({ props }) => {
   return (
     <>
       <nav className="navbar navbar-expand-lg p-2">
-        <Link href="/">
-          <a className="nav-item nav-link">Home</a>
-        </Link>
-        <Link href="/about">
-        <a href="#" onClick={e => handleOnClickLogout(e)}>
-                  &bull; Вийти
-                </a>
-        </Link>
         <Link href="/orders">
           <a className="nav-item nav-link">Всі замовлення</a>
         </Link>
         <Link href="/add">
           <a className="nav-item nav-link">Створити нове замовлення</a>
+        </Link>
+        <Link href="/">
+        <a href="#" onClick={e => handleOnClickLogout(e)}>
+                  &bull; Вийти
+                </a>
         </Link>
         {/* <Link href="/forever">
           <a className="nav-item nav-link">Forever</a>

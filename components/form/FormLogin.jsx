@@ -9,7 +9,7 @@ function FormLogin({ props }) {
   return (
     <form className="form-login card" method="POST" onSubmit={onSubmitHandler}>
       <div className="form-group">
-        <h2>Login</h2>
+        <h2>Увійдіть</h2>
         <hr />
         {stateFormMessage.status === "error" && (
           <h4 className="warning text-center">{stateFormMessage.error}</h4>
@@ -47,7 +47,7 @@ function FormLogin({ props }) {
       </div>
       <div>
         <button type="submit" className="btn btn-block btn-warning">
-          Login
+          Вхід
         </button>
       </div>
     </form>

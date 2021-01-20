@@ -96,14 +96,6 @@ export default class Add extends React.Component {
             <a href="/">Login to continue</a>
           ) : (
             <div>
-              <div style={{ margin: '.5rem 0rem' }}>
-                <Link href={{ pathname: '/' }}>
-                  <a style={{ marginRight: '.75rem' }}>&bull; Home Page</a>
-                </Link>
-                <a href="#" onClick={this.handleOnClickLogout}>
-                  &bull; Logout
-                </a>
-              </div>
               <div style={{ textAlign: 'left' }}>
                 <fieldset>
                   <legend>
@@ -112,14 +104,11 @@ export default class Add extends React.Component {
                   <h4>Email: {profile.email}</h4>
                 </fieldset>
               </div>
-            </div>
-          )}
-        </main>
-        <form className={styles.content} onSubmit={this.handleSubmit}>
+              <form className={styles.content} onSubmit={this.handleSubmit}>
           <label name="order">
             № Замовлення:
             <input
-              type="text"
+            type="number"
               value={this.state.order}
               onChange={this.handleInputOrderChange}
             />
@@ -127,7 +116,7 @@ export default class Add extends React.Component {
           <label name="realization">
             № Видаткової:
             <input
-              type="text"
+            type="number"
               value={this.state.realization}
               onChange={this.handleInputRealizationChange}
             />
@@ -135,7 +124,7 @@ export default class Add extends React.Component {
           <label name="transfer">
             № Переміщення:
             <input
-              type="text"
+            type="number"
               value={this.state.transfer}
               onChange={this.handleInputTransferChange}
             />
@@ -143,7 +132,7 @@ export default class Add extends React.Component {
           <label name="price">
             Сума:
             <input
-              type="text"
+            type="number"
               value={this.state.price}
               onChange={this.handleInputPriceChange}
             />
@@ -178,6 +167,10 @@ export default class Add extends React.Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
+            </div>
+          )}
+        </main>
+        
       </div>
       </Layout>
     );

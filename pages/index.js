@@ -212,18 +212,8 @@ export default function Home(props) {
     <Layout title="Next.js with JWT Authentication | Home Page">
       <div className="container">
         <main>
-          <h1 className="title">
-            Welcome to <a href="https://nextjs.org">Next.js!</a>
-          </h1>
-          <h2>JWT Authentication</h2>
           {!profile ? (
             <>
-              <h3>Login to continue</h3>
-              <p className="description">
-                Use : <code>example1@example.com</code> or{' '}
-                <code>example2@example.com</code> with the password:
-                <code>password</code>
-              </p>
               <div>
                 <FormLogin
                   props={{
@@ -239,12 +229,14 @@ export default function Home(props) {
             </>
           ) : (
             <div>
-              <Link href={{ pathname: '/about' }}>
-                <a style={{ marginRight: '.75rem' }}>&bull; About Page</a>
-              </Link>
-              <a href="#" onClick={e => handleOnClickLogout(e)}>
-                &bull; Logout
-              </a>
+              <div style={{ textAlign: 'left' }}>
+                <fieldset>
+                  <legend>
+                    <h3>Ви увійшли як {profile.fullName}</h3>
+                  </legend>
+                  <h4>Email: {profile.email}</h4>
+                </fieldset>
+              </div>
             </div>
           )}
         </main>
