@@ -1,30 +1,19 @@
 import addOrder from "../../middleware/models/addorder";
-import Cors from 'cors';
-const cors = Cors({
-  methods: ['GET', 'HEAD', 'POST'],
-})
+import Cors from 'cors'
+import initMiddleware from '../../middleware/init-middleware'
 
-// Helper method to wait for a middleware to execute before continuing
-// And to throw an error when an error happens in a middleware
-function runMiddleware(req, res, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result)
-      }
-
-      return resolve(result)
-    })
+// Initialize the cors middleware
+const cors = initMiddleware(
+  // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
+  Cors({
+    // Only allow requests with GET, POST and OPTIONS
+    methods: ['GET', 'POST', 'OPTIONS'],
   })
-}
-
-
+)
 
 export default async function handler(req, res) {
-
-
-  // Run the middleware
-  await runMiddleware(req, res, cors);
+  // Run cors
+  await cors(req, res)
 
   let orderId = JSON.parse(req.body);
   if (orderId.order) {
@@ -32,6 +21,9 @@ export default async function handler(req, res) {
       res.status(200);
       res.end(JSON.stringify(data));
       res.send(data);
+      res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+res.setHeader("Access-Control-Allow-Headers", "Authorization, Cache-Control, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+
     });
   } else {
     res.status(500);

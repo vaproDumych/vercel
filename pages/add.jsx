@@ -76,8 +76,16 @@ export default class Add extends React.Component {
     this.setState({manager: this.props.profile.fullName});
   }
   handleSubmit = async (event) => {
+
+    let header = new Headers({
+      "Access-Control-Allow-Origin": "*",
+    });
+
+
+
     fetch("api/addorder", {
       method: "POST",
+      header,
       body: JSON.stringify(this.state),
     });
   };
