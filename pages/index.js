@@ -209,7 +209,7 @@ export default function Home(props) {
   }
 
   return (
-    <Layout title="Next.js with JWT Authentication | Home Page">
+    <Layout title="Електричні системи - фінансовий звіт | Головна">
       <div className="container">
         <main>
           {!profile ? (
