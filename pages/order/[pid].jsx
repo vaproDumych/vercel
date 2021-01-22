@@ -181,8 +181,8 @@ export default class NameForm extends React.Component {
                  >
                   <option value="Monobank">Monobank</option>
                   <option value="Privatbank">Privatbank</option>
-                  <option value="cache">Готівка</option>
-                  <option value="other">Інше</option>
+                  <option value="Готівка">Готівка</option>
+                  <option value="Інше">Інше</option>
                 </select>
 
                 {this.state.admin !== "Гук Василь" ? (null) : (
