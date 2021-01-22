@@ -20,6 +20,8 @@ export default function Orders(props) {
 
   const { profile } = props;
 
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
 
   useEffect(() => {
     fetch("../api/orders", {
@@ -70,7 +72,7 @@ export default function Orders(props) {
 
                 {items.map((order) => (
                   <tr style={ order.checked ? { backgroundColor: '#00640050'} : {}}>
-                    <td>{order.date_added}</td>
+                    <td>{new Date(order.date_added).toLocaleDateString('uk-UA', options)}</td>
                     <td>{order.order}</td>
                     <td>{order.realization}</td>
                     <td>{order.transfer}</td>
