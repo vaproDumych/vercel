@@ -72,8 +72,8 @@ export default class Add extends React.Component {
   componentDidMount() {
     const { profile } = this.props.profile;
     console.log(this.props.profile.fullName)
-    this.setState({profile: profile});
-    this.setState({manager: this.props.profile.fullName});
+    this.setState({ profile: profile });
+    this.setState({ manager: this.props.profile.fullName });
   }
   handleSubmit = async (event) => {
 
@@ -85,22 +85,29 @@ export default class Add extends React.Component {
 
     fetch("api/addorder", {
       method: "POST",
-      header,
+      contentType: "application/json",
+      trackMessageLength: true,
+      shared: true,
+      enableXDR: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'sameSite': ' None; Secure'
+      },
       body: JSON.stringify(this.state),
     })
-    .then((res) => res.json())
-    .then(
-      (result) => {
-        
-        console.log(result);
-      },
-      // Note: it's important to handle errors here
-      // instead of a catch() block so that we don't swallow
-      // exceptions from actual bugs in components.
-      (error) => {
-console.log(error);
-      }
-    );
+      .then((res) => res.json())
+      .then(
+        (result) => {
+
+          console.log(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          console.log(error);
+        }
+      );
   };
 
   handleOnClickLogout(event) {
@@ -110,89 +117,89 @@ console.log(error);
   render() {
     const { profile } = this.props;
     return (
-          <Layout title="Добавити нове замовлення">
-      <div>
-        <main>
-          {!profile ? (
-            <a href="/">Login to continue</a>
-          ) : (
-            <div>
-              <div style={{ textAlign: 'left' }}>
-                <fieldset>
-                  <legend>
-                  <h4>Менеджер: {profile.fullName}</h4>
-                  </legend>
-                  <h4>Email: {profile.email}</h4>
-                </fieldset>
-              </div>
-              <form className={styles.content} onSubmit={this.handleSubmit}>
-          <label name="order">
-            № Замовлення:
+      <Layout title="Добавити нове замовлення">
+        <div>
+          <main>
+            {!profile ? (
+              <a href="/">Login to continue</a>
+            ) : (
+                <div>
+                  <div style={{ textAlign: 'left' }}>
+                    <fieldset>
+                      <legend>
+                        <h4>Менеджер: {profile.fullName}</h4>
+                      </legend>
+                      <h4>Email: {profile.email}</h4>
+                    </fieldset>
+                  </div>
+                  <form className={styles.content} onSubmit={this.handleSubmit}>
+                    <label name="order">
+                      № Замовлення:
             <input
-            type="number"
-              value={this.state.order}
-              onChange={this.handleInputOrderChange} required
-            />
-          </label>
-          <label name="realization">
-            № Видаткової:
+                        type="number"
+                        value={this.state.order}
+                        onChange={this.handleInputOrderChange} required
+                      />
+                    </label>
+                    <label name="realization">
+                      № Видаткової:
             <input
-            type="number"
-              value={this.state.realization}
-              onChange={this.handleInputRealizationChange}
-            />
-          </label>
-          <label name="transfer">
-            № Переміщення:
+                        type="number"
+                        value={this.state.realization}
+                        onChange={this.handleInputRealizationChange}
+                      />
+                    </label>
+                    <label name="transfer">
+                      № Переміщення:
             <input
-            type="number"
-              value={this.state.transfer}
-              onChange={this.handleInputTransferChange}
-            />
-          </label>
-          <label name="price">
-            Сума:
+                        type="number"
+                        value={this.state.transfer}
+                        onChange={this.handleInputTransferChange}
+                      />
+                    </label>
+                    <label name="price">
+                      Сума:
             <input
-            type="number"
-              value={this.state.price}
-              onChange={this.handleInputPriceChange} required
-            />
-          </label>
+                        type="number"
+                        value={this.state.price}
+                        onChange={this.handleInputPriceChange} required
+                      />
+                    </label>
 
-          <label name="manager">
-            Відповідальний:
+                    <label name="manager">
+                      Відповідальний:
             <input
-              type="text"
-              value={this.state.manager}
-              disabled
-            />
-          </label>
-          <label name="payment">
-            Тип оплати:
+                        type="text"
+                        value={this.state.manager}
+                        disabled
+                      />
+                    </label>
+                    <label name="payment">
+                      Тип оплати:
             <select
-              value={this.state.payment}
-              onChange={this.handleInputPaymentChange}
-            >
-              <option value="Monobank">Monobank</option>
-              <option value="Privatbank">Privatbank</option>
-              <option value="Гоівка">Готівка</option>
-              <option value="Інше">Інше</option>
-            </select>
-          </label>
-          <label name="comment">
-            Коментар:
+                        value={this.state.payment}
+                        onChange={this.handleInputPaymentChange}
+                      >
+                        <option value="Monobank">Monobank</option>
+                        <option value="Privatbank">Privatbank</option>
+                        <option value="Гоівка">Готівка</option>
+                        <option value="Інше">Інше</option>
+                      </select>
+                    </label>
+                    <label name="comment">
+                      Коментар:
             <textarea
-              value={this.state.comment}
-              onChange={this.handleInputCommentChange}
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-            </div>
-          )}
-        </main>
-        
-      </div>
+                        value={this.state.comment}
+                        onChange={this.handleInputCommentChange}
+                      />
+                    </label>
+                    <input type="submit" value="Submit" />
+                  </form>
+                </div>
+              )}
+          </main>
+
+        </div>
       </Layout>
     );
   }
