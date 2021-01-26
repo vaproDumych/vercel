@@ -17,6 +17,8 @@ export default function Orders(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [ammont, setAmmont] = useState(0);
 
   const { profile } = props;
 
@@ -33,7 +35,13 @@ export default function Orders(props) {
         (result) => {
           setIsLoaded(true);
           setItems(result);
-          console.log(result);
+          let summed = 0;
+
+          for (let key in result) {
+            summed += Number(result[key].price);
+          };
+          setTotal(summed);
+          setAmmont(Object.keys(result).length);
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -57,7 +65,8 @@ export default function Orders(props) {
             <a href="/">Login to continue</a>
           ) : (
               <table className="table-content">
-                <tr>
+                <thead>
+                  <tr>
                   <td>Дата</td>
                   <td>№ замовлення</td>
                   <td>№ Видаткової</td>
@@ -68,10 +77,11 @@ export default function Orders(props) {
                   <td>Коментар</td>
                   <td>Перевірено</td>
                   <td>Змінити дані</td>
-                </tr>
-
+                  </tr>
+                </thead>
+                <tbody>
                 {items.map((order) => (
-                  <tr style={ order.checked ? { backgroundColor: '#00640050'} : {}}>
+                  <tr key={order.order} style={order.checked ? { backgroundColor: '#00640050' } : {}}>
                     <td>{new Date(order.date_added).toLocaleDateString('uk-UA', options)}</td>
                     <td>{order.order}</td>
                     <td>{order.realization}</td>
@@ -88,6 +98,15 @@ export default function Orders(props) {
                     </td>
                   </tr>
                 ))}
+                </tbody>
+                <tfoot>
+                  <tr>
+                  <td colSpan="3">Разом:</td>
+                  <td colSpan="2">Замовлень:  {ammont}</td>
+                  <td colSpan="2">На суму:  {new Intl.NumberFormat('uk-UA', { style: 'currency', currency: 'UAH' }).format(total)}</td>
+                  <td colSpan="4"></td>
+                  </tr>
+                </tfoot>
               </table>
             )}
 

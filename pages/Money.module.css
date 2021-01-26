@@ -10,3 +10,18 @@
   width: 100%;
   margin-top: 50px;
 }
+
+.content table thead {
+  border: 2px solid grey;
+}
+.content table thead td {
+  border: 2px solid grey;
+}
+
+.content table tfoot {
+  border: 2px solid grey;
+}
+
+.content table tfoot td {
+  border: 2px solid grey;
+}
