@@ -18,6 +18,10 @@
   border: 2px solid grey;
 }
 
+.content table thead select {
+  display: block;
+}
+
 .content table tfoot {
   border: 2px solid grey;
 }
