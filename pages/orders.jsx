@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import styles from "./Money.module.css";
+
+import { enGB } from 'date-fns/locale'
+import { DateRangePicker, START_DATE, END_DATE } from 'react-nice-dates'
+import 'react-nice-dates/build/style.css'
+
 /* middleware */
 import {
   absoluteUrl,
@@ -26,6 +31,11 @@ export default function Orders(props) {
   const [filterAmmont, setFilterAmmont] = useState(0);
   const [filterTotal, setFilterTotal] = useState(0);
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+
+  const [startDate, setStartDate] = useState()
+  const [endDate, setEndDate] = useState()
+  const [focus, setFocus] = useState(START_DATE)
 
 
   useEffect(() => {
@@ -63,6 +73,23 @@ export default function Orders(props) {
   }, []);
 
 
+  function sortDates(e) {
+
+    let date = new Date(endDate),
+      d = date.getDate(),
+      m = date.getMonth(),
+      y = date.getFullYear();
+      let modEndDate = new Date(y, m, d + 1)
+      //console.log(modEndDate);
+
+      let filteredOrders = items.filter(el => new Date(el.date_added) >= new Date(startDate) && new Date(el.date_added) <= modEndDate);
+      setFiltered(filteredOrders);
+
+    //console.log(new Date(startDate), new Date(endDate));
+    //console.log(items.sort((a, b) => new Date(b.date_added) - new Date(a.date_added)))
+  }
+
+
   function handleSelect(e) {
     setCurrent(e.target.value);
 
@@ -91,7 +118,7 @@ export default function Orders(props) {
   } else {
     return (
       <Layout title="Всі замовлення">
-        <div className={styles.content}>
+        <div className={styles.content} style={{ minHeight: "100vh" }}>
           <div>
 
           </div>
@@ -101,7 +128,34 @@ export default function Orders(props) {
               <table className="table-content">
                 <thead>
                   <tr>
-                    <td>Дата</td>
+                    <td>Дата
+                    <DateRangePicker
+                        startDate={startDate}
+                        endDate={endDate}
+                        onStartDateChange={setStartDate}
+                        onEndDateChange={setEndDate}
+                        minimumLength={1}
+                        format='dd MMM yyyy'
+                        locale={enGB}
+                      >
+                        {({ startDateInputProps, endDateInputProps, focus }) => (
+                          <div className='date-range'>
+                            <input
+                              className={'input' + (focus === START_DATE ? ' -focused' : '')}
+                              {...startDateInputProps}
+                              placeholder='Початкова дата'
+                            />
+                            <span className='date-range_arrow' />
+                            <input
+                              className={'input' + (focus === END_DATE ? ' -focused' : '')}
+                              {...endDateInputProps}
+                              placeholder='Кінцева дата'
+                            />
+                          </div>
+                        )}
+                      </DateRangePicker>
+                      <button style={{ marginTop: "5px" }} onClick={sortDates}>Встановити інтервал дат</button>
+                    </td>
                     <td>№ замовлення</td>
                     <td>№ Видаткової</td>
                     <td>№ Переміщення</td>
