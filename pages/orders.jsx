@@ -74,8 +74,8 @@ export default function Orders(props) {
 
 
   function sortDates(e) {
-
-    let date = new Date(endDate),
+    if (startDate !== undefined && endDate !== undefined) {
+      let date = new Date(endDate),
       d = date.getDate(),
       m = date.getMonth(),
       y = date.getFullYear();
@@ -84,6 +84,17 @@ export default function Orders(props) {
 
       let filteredOrders = items.filter(el => new Date(el.date_added) >= new Date(startDate) && new Date(el.date_added) <= modEndDate);
       setFiltered(filteredOrders);
+
+      let summed = 0;
+      let totalOrders = 0;
+      for (let key in filteredOrders) {
+        summed += Number(filteredOrders[key].price);
+        totalOrders = Object.keys(filteredOrders).length;
+      }
+      setFilterAmmont(totalOrders);
+      setFilterTotal(summed);      
+    }
+
 
     //console.log(new Date(startDate), new Date(endDate));
     //console.log(items.sort((a, b) => new Date(b.date_added) - new Date(a.date_added)))
@@ -94,11 +105,41 @@ export default function Orders(props) {
     setCurrent(e.target.value);
 
     if (e.target.value == "all") {
-      setFiltered(items);
-      setFilterAmmont(ammont);
-      setFilterTotal(total);
+      let filteredOrders = items;
+      if (startDate !== undefined && endDate !== undefined) {
+
+        let date = new Date(endDate),
+        d = date.getDate(),
+        m = date.getMonth(),
+        y = date.getFullYear();
+        let modEndDate = new Date(y, m, d + 1)
+        //console.log(modEndDate);
+    
+        filteredOrders = items.filter(el => new Date(el.date_added) >= new Date(startDate) && new Date(el.date_added) <= modEndDate);
+      }
+      
+    setFiltered(filteredOrders);
+
+    let summed = 0;
+    let totalOrders = 0;
+    for (let key in filteredOrders) {
+      summed += Number(filteredOrders[key].price);
+      totalOrders = Object.keys(filteredOrders).length;
+    }
+    setFilterAmmont(totalOrders);
+    setFilterTotal(summed);
+
     } else {
-      let filteredOrders = items.filter(el => el.manager == e.target.value);
+      let filteredOrders = items.filter(el => el.manager == e.target.value);  
+      if (startDate !== undefined && endDate !== undefined) {
+        let date = new Date(endDate),
+        d = date.getDate(),
+        m = date.getMonth(),
+        y = date.getFullYear();
+        let modEndDate = new Date(y, m, d + 1);
+  
+        filteredOrders = items.filter(el => el.manager == e.target.value && new Date(el.date_added) >= new Date(startDate) && new Date(el.date_added) <= modEndDate);  
+      }
       setFiltered(filteredOrders);
       let summed = 0;
       let totalOrders = 0;
