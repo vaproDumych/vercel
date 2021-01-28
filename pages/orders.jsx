@@ -37,8 +37,12 @@ export default function Orders(props) {
   const [endDate, setEndDate] = useState()
   const [focus, setFocus] = useState(START_DATE)
 
+  const router = useRouter();
 
   useEffect(() => {
+    if (!profile) {
+      router.push('/')
+    };
     fetch("../api/orders", {
       method: "POST",
       body: JSON.stringify(profile.fullName),
@@ -166,6 +170,15 @@ export default function Orders(props) {
           {!profile ? (
             <a href="/">Login to continue</a>
           ) : (
+            <>
+            <div style={{ textAlign: 'left' }}>
+                <fieldset>
+                  <legend>
+                    <h3>Менеджер:  {profile.fullName}</h3>
+                  </legend>
+                  <h4>Email: {profile.email}</h4>
+                </fieldset>
+              </div>
               <table className="table-content">
                 <thead>
                   <tr>
@@ -247,6 +260,7 @@ export default function Orders(props) {
                   </tr>
                 </tfoot>
               </table>
+              </>
             )}
 
         </div>

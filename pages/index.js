@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
+
 import Link from 'next/link';
-import Router from 'next/router';
+import { useRouter } from 'next/router'
+
 import Cookies from 'js-cookie';
 
 /* middleware */
@@ -51,6 +54,9 @@ export default function Home(props) {
   const [loading, setLoading] = useState(false);
   const [stateFormMessage, setStateFormMessage] = useState({});
 
+  const router = useRouter();
+
+
   function onChangeHandler(e) {
     const { name, value } = e.currentTarget;
 
@@ -98,7 +104,7 @@ export default function Home(props) {
         Cookies.set('token', result.token);
         // window.location.href = referer ? referer : "/";
         // const pathUrl = referer ? referer.lastIndexOf("/") : "/";
-        Router.push('/');
+        router.push('/');
       } else {
         setStateFormMessage(result);
       }
@@ -207,6 +213,12 @@ export default function Home(props) {
   function handleOnClickLogout(e) {
     setLogout(e);
   }
+
+  useEffect(() => {
+    if (profile) {
+      router.push('/orders')
+    }
+  })
 
   return (
     <Layout title="Електричні системи - фінансовий звіт | Головна">
