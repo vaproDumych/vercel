@@ -18,7 +18,7 @@ export default async function handler(req, res) {
   let orderId = JSON.parse(req.body);
   if (orderId.order) {
     await addOrder(JSON.parse(req.body)).then((data) => {
-      res.status(200);
+      console.log(data)
       //res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
       //res.setHeader("Access-Control-Allow-Headers", "Authorization, Cache-Control, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
       res.status(200).json(data);
