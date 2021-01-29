@@ -78,6 +78,31 @@ export default function Orders(props) {
 
 
   function sortDates(e) {
+  console.log(current);
+  if (current && current !== "all") {
+    if (startDate !== undefined && endDate !== undefined) {
+      let date = new Date(endDate),
+      d = date.getDate(),
+      m = date.getMonth(),
+      y = date.getFullYear();
+      let modEndDate = new Date(y, m, d + 1)
+      //console.log(modEndDate);
+
+      let filteredOrders = items.filter(el => el.manager == current && new Date(el.date_added) >= new Date(startDate) && new Date(el.date_added) <= modEndDate);
+      setFiltered(filteredOrders);
+
+      console.log(filteredOrders);
+      let summed = 0;
+      let totalOrders = 0;
+      for (let key in filteredOrders) {
+        summed += Number(filteredOrders[key].price);
+        totalOrders = Object.keys(filteredOrders).length;
+      }
+      setFilterAmmont(totalOrders);
+      setFilterTotal(summed);      
+    }
+
+  } else {
     if (startDate !== undefined && endDate !== undefined) {
       let date = new Date(endDate),
       d = date.getDate(),
@@ -97,7 +122,11 @@ export default function Orders(props) {
       }
       setFilterAmmont(totalOrders);
       setFilterTotal(summed);      
+      console.log(filteredOrders);
+
     }
+  }
+
 
 
     //console.log(new Date(startDate), new Date(endDate));
