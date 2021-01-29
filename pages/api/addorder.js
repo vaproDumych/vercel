@@ -22,12 +22,12 @@ export default async function handler(req, res) {
       res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
       //res.setHeader("Access-Control-Allow-Headers", "Authorization, Cache-Control, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
       res.end(JSON.stringify(data));
-      res.send(data);
+      res.json(data);
     })
       .catch(err => {
         console.log(err);
         res.status(500);
-        res.send({ status: 'body null' });
+        res.json({ status: 'body null' });
       });
   }
 
