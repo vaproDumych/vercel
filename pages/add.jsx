@@ -77,21 +77,20 @@ export default class Add extends React.Component {
   }
   handleSubmit = async (event) => {
 
-    let header = new Headers({
-      "Access-Control-Allow-Origin": "*",
-    });
+    // let header = new Headers({
+    //   "Access-Control-Allow-Origin": "*",
+    // });
 
 
 
     fetch("api/addorder", {
-      method: "POST",
-      contentType: "application/json",
-      trackMessageLength: true,
-      shared: true,
-      enableXDR: true,
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'sameSite': ' None; Secure'
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify(this.state),
     })
