@@ -18,15 +18,16 @@ export default async function handler(req, res) {
   let orderId = JSON.parse(req.body);
   if (orderId.order) {
     await addOrder(JSON.parse(req.body)).then((data) => {
-      res.status(200);
-      res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-      //res.setHeader("Access-Control-Allow-Headers", "Authorization, Cache-Control, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-      res.end(JSON.stringify(data));
-      res.send(data);
+      if (error) {
+        res.status(500);
+        res.send({ status: 'body null' });    
+      } else {
+        res.status(200);
+        // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+        res.setHeader("Access-Control-Allow-Headers", "Authorization, Cache-Control, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+        res.end(JSON.stringify(data));
+        // res.send(data);  
+      }
     });
-  } else {
-    res.status(500);
-    res.send({ status: 'body null' });
   }
-
 }
